@@ -33,11 +33,22 @@ Manage projects without editing code:
 
 ### Production saves (Vercel)
 
-1. Add [Upstash Redis](https://vercel.com/marketplace/upstash) to your Vercel project.
-2. Set `ADMIN_PASSWORD` in Vercel environment variables (same value you use to sign in).
-3. Redeploy. Saves from `/admin` persist for all visitors.
+Admin saves need persistent storage on Vercel. Pick **one** option:
 
-Without Redis, the site serves `public/projects.json` from the last deploy.
+**Option A — Vercel Blob (easiest)**
+
+1. Vercel project → **Storage** → **Create Database** → **Blob**
+2. Connect it to this project (`BLOB_READ_WRITE_TOKEN` is added automatically)
+3. Set `ADMIN_PASSWORD` under **Settings → Environment Variables**
+4. Redeploy
+
+**Option B — Upstash Redis**
+
+1. Vercel project → **Storage** → add **Upstash Redis**
+2. Set `ADMIN_PASSWORD` in environment variables
+3. Redeploy
+
+Without storage, the site serves `public/projects.json` from the last deploy (read-only).
 
 ## Build for production
 

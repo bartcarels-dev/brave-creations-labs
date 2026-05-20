@@ -1,14 +1,20 @@
 import { readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { Redis } from '@upstash/redis'
+import { head, put } from '@vercel/blob'
 
-const STORAGE_KEY = 'brave-creations:projects'
+const REDIS_KEY = 'brave-creations:projects'
+const BLOB_PATH = 'brave-creations/projects.json'
 
 function getRedis() {
   const url = process.env.UPSTASH_REDIS_REST_URL
   const token = process.env.UPSTASH_REDIS_REST_TOKEN
   if (!url || !token) return null
   return new Redis({ url, token })
+}
+
+function hasBlobStorage() {
+  return Boolean(process.env.BLOB_READ_WRITE_TOKEN)
 }
 
 async function readStaticProjects() {
@@ -21,6 +27,28 @@ async function readStaticProjects() {
   }
 }
 
+async function readFromBlob() {
+  if (!hasBlobStorage()) return null
+
+  try {
+    const meta = await head(BLOB_PATH)
+    const res = await fetch(meta.url)
+    if (!res.ok) return null
+    return res.json()
+  } catch {
+    return null
+  }
+}
+
+async function writeToBlob(projects) {
+  await put(BLOB_PATH, JSON.stringify(projects, null, 2), {
+    access: 'public',
+    addRandomSuffix: false,
+    allowOverwrite: true,
+    contentType: 'application/json',
+  })
+}
+
 function checkAuth(req) {
   const expected = process.env.ADMIN_PASSWORD
   if (!expected) return false
@@ -29,16 +57,29 @@ function checkAuth(req) {
   return token === expected
 }
 
+function storageSetupHint() {
+  return (
+    'Saving is not configured on Vercel yet. In your project dashboard: ' +
+    'Storage → Create → Blob (or Upstash Redis), then set ADMIN_PASSWORD and redeploy. ' +
+    'Locally, use npm run dev to save to public/projects.json.'
+  )
+}
+
 export default async function handler(req, res) {
   const redis = getRedis()
 
   if (req.method === 'GET') {
     try {
       if (redis) {
-        const stored = await redis.get(STORAGE_KEY)
+        const stored = await redis.get(REDIS_KEY)
         if (stored) {
           return res.status(200).json(stored)
         }
+      }
+
+      const blobData = await readFromBlob()
+      if (blobData) {
+        return res.status(200).json(blobData)
       }
 
       const staticData = await readStaticProjects()
@@ -65,14 +106,16 @@ export default async function handler(req, res) {
 
     try {
       if (redis) {
-        await redis.set(STORAGE_KEY, projects)
+        await redis.set(REDIS_KEY, projects)
         return res.status(200).json({ ok: true, projects })
       }
 
-      return res.status(503).json({
-        error:
-          'Storage not configured. Add Upstash Redis to your Vercel project, or save locally via npm run dev.',
-      })
+      if (hasBlobStorage()) {
+        await writeToBlob(projects)
+        return res.status(200).json({ ok: true, projects })
+      }
+
+      return res.status(503).json({ error: storageSetupHint() })
     } catch (err) {
       console.error('PUT /api/projects', err)
       return res.status(500).json({ error: 'Failed to save projects' })
