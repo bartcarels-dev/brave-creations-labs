@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react'
 import Header from './components/Header.jsx'
 import Intro from './components/Intro.jsx'
 import ProjectGrid from './components/ProjectGrid.jsx'
@@ -18,6 +19,7 @@ export default function App() {
         <ProjectGrid projects={projects} />
       </main>
       <Footer />
+      <Analytics />
     </div>
   )
 }
