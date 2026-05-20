@@ -27,6 +27,6 @@ export const projects = [
       'Track household essentials and get gentle reminders before you run out — no more surprise empty shelves.',
     status: 'Concept',
     accent: '#f9a8d4',
-    url: '#',
+    url: 'https://almost-out.lovable.app/',
   },
 ]
