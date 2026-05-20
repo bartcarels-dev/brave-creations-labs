@@ -1,13 +1,13 @@
 export const projects = [
   {
-    id: 'grocery-buddy',
-    name: 'Grocery Buddy',
-    tagline: 'Smart lists, less stress at the store.',
+    id: 'listpal',
+    name: 'ListPal',
+    tagline: 'Smart shared lists without the chaos.',
     description:
-      'A lightweight shopping companion that helps you build lists, track staples, and stay organized while you shop.',
+      'A lightweight shared list app for groceries and everyday organization.',
     status: 'Prototype',
     accent: '#6ee7b7',
-    url: '#',
+    url: 'https://listpal.lovable.app/',
   },
   {
     id: 'de-escalation-tool',
