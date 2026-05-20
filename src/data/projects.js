@@ -22,9 +22,9 @@ export const projects = [
   {
     id: 'almost-out',
     name: 'Almost Out',
-    tagline: 'Know what’s running low before it’s gone.',
+    tagline: 'Grab local deals before they disappear.',
     description:
-      'Track household essentials and get gentle reminders before you run out — no more surprise empty shelves.',
+      'Discover real-time last-minute offers from nearby shops and rescue perfectly good products before they go to waste.',
     status: 'Concept',
     accent: '#f9a8d4',
     url: 'https://almost-out.lovable.app/',
