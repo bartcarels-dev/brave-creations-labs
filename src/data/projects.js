@@ -10,14 +10,14 @@ export const projects = [
     url: 'https://listpal.lovable.app/',
   },
   {
-    id: 'de-escalation-tool',
-    name: 'De-escalation Tool',
-    tagline: 'Calm guidance when tensions rise.',
+    id: 'conflict-buddy',
+    name: 'Conflict Buddy',
+    tagline: 'Clearer communication when emotions run high.',
     description:
-      'Interactive prompts and breathing exercises designed to help people pause, reflect, and choose a calmer next step.',
+      'An AI-assisted communication tool designed to help de-escalate conflict, improve tone, and encourage calmer conversations.',
     status: 'In development',
     accent: '#93c5fd',
-    url: '#',
+    url: 'https://conflict-buddy.vercel.app/',
   },
   {
     id: 'almost-out',
