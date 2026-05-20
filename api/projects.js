@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { Redis } from '@upstash/redis'
-import { head, put } from '@vercel/blob'
+import { get, put } from '@vercel/blob'
 
 const REDIS_KEY = 'brave-creations:projects'
 const BLOB_PATH = 'projects.json'
@@ -31,12 +31,15 @@ async function readFromBlob() {
   if (!hasBlobStorage()) return null
 
   try {
-    const meta = await head(BLOB_PATH, {
-      token: process.env.BLOB_READ_WRITE_TOKEN,
+    const token = process.env.BLOB_READ_WRITE_TOKEN
+    const result = await get(BLOB_PATH, {
+      access: 'private',
+      token,
     })
-    const res = await fetch(meta.url)
-    if (!res.ok) return null
-    return res.json()
+    if (!result?.stream) return null
+
+    const text = await new Response(result.stream).text()
+    return JSON.parse(text)
   } catch {
     return null
   }
@@ -49,7 +52,7 @@ async function writeToBlob(projects) {
   }
 
   await put(BLOB_PATH, JSON.stringify(projects, null, 2), {
-    access: 'public',
+    access: 'private',
     token,
     addRandomSuffix: false,
     allowOverwrite: true,
