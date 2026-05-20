@@ -1,5 +1,5 @@
 export default function ProjectCard({ project }) {
-  const { name, tagline, description, status, accent, url } = project
+  const { name, tagline, description, phase, accent, url } = project
 
   return (
     <article
@@ -9,7 +9,7 @@ export default function ProjectCard({ project }) {
       <div className="project-card__glow" aria-hidden="true" />
       <div className="project-card__body">
         <div className="project-card__meta">
-          <span className="project-card__status">{status}</span>
+          <span className="project-card__status">{phase}</span>
         </div>
         <h3 className="project-card__title">{name}</h3>
         <p className="project-card__tagline">{tagline}</p>

@@ -1,11 +1,13 @@
-export const projects = [
+/** Default project seed — used when API/JSON are unavailable. */
+export const defaultProjects = [
   {
     id: 'listpal',
     name: 'ListPal',
     tagline: 'Smart shared lists without the chaos.',
     description:
       'A lightweight shared list app for groceries and everyday organization.',
-    status: 'Prototype',
+    phase: 'Prototype',
+    visible: true,
     accent: '#6ee7b7',
     url: 'https://listpal.lovable.app/',
   },
@@ -15,7 +17,8 @@ export const projects = [
     tagline: 'Clearer communication when emotions run high.',
     description:
       'An AI-assisted communication tool designed to help de-escalate conflict, improve tone, and encourage calmer conversations.',
-    status: 'In development',
+    phase: 'In development',
+    visible: true,
     accent: '#93c5fd',
     url: 'https://conflict-buddy.vercel.app/',
   },
@@ -25,7 +28,8 @@ export const projects = [
     tagline: 'Grab local deals before they disappear.',
     description:
       'Discover real-time last-minute offers from nearby shops and rescue perfectly good products before they go to waste.',
-    status: 'Concept',
+    phase: 'Concept',
+    visible: true,
     accent: '#f9a8d4',
     url: 'https://almost-out.lovable.app/',
   },
