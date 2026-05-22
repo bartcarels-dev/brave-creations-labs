@@ -10,7 +10,7 @@ import {
   normalizeProjects,
 } from '../lib/projectUtils.js'
 
-const SESSION_KEY = 'brave-admin-session'
+const SESSION_KEY = 'tinker-admin-session'
 
 export default function Admin() {
   const { projects, loading, reload } = useProjects()

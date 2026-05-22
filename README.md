@@ -1,6 +1,6 @@
-# Brave Creations Hub
+# Tinker Department Hub
 
-A dark, modern projects hub for **Brave Creations Labs** — showcasing experimental apps and tools.
+A dark, modern projects hub for **Tinker Department** — showcasing experimental apps and tools.
 
 ## Run locally
 

@@ -3,7 +3,7 @@ import { join } from 'node:path'
 import { Redis } from '@upstash/redis'
 import { get, put } from '@vercel/blob'
 
-const REDIS_KEY = 'brave-creations:projects'
+const REDIS_KEY = 'tinker-department:projects'
 const BLOB_PATH = 'projects.json'
 
 function getRedis() {

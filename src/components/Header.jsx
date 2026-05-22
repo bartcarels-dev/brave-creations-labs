@@ -3,11 +3,13 @@ export default function Header() {
     <header className="header">
       <div className="header__brand">
         <span className="header__mark" aria-hidden="true">
-          BC
+          TD
         </span>
-        <h1 className="header__title">Brave Creations Labs</h1>
+        <h1 className="header__title">Tinker Department</h1>
       </div>
-      <p className="header__tagline">Experimental projects &amp; apps</p>
+      <p className="header__tagline">
+        Experiments, prototypes and things currently being tinkered with.
+      </p>
     </header>
   )
 }
