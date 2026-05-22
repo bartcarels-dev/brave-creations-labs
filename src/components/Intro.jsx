@@ -5,9 +5,8 @@ export default function Intro() {
         About the lab
       </h2>
       <p className="intro__text">
-        We build small, thoughtful experiments — tools for everyday life,
-        wellness, and staying organized. Each project starts as a sketch and
-        grows in the open. Pick one below to explore.
+        A place for experiments, prototypes, and things in progress. Pick one
+        below to explore.
       </p>
     </section>
   )
